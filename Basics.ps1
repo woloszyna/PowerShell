@@ -1,14 +1,25 @@
 $Source = 'D:\Source\'
 $File = 'TextFile.txt'
 $Destination = 'D:\Destination\'
+$fileSize = 200000000 #200MB
 
 New-Item -Path $Source -ItemType Directory
 New-Item -Path $Source$File -ItemType File
 New-Item -Path $Destination -ItemType Directory
+#Create a file of particulat=r size (bytes). Might take a lot of resources to create`
+fsutil file createNew $Destination'Largefilex.txt' $fileSize
 
+#Add content to the file
+Set-Content -Path $Destination'Largefilex.txt' -Value 'This file has a size of'
 
-#Copy-Item $Source'TextFile.txt' $Destination
-Copy-Item $Source$File $Destination
+#Set the property of the file - ReadOnly
+Set-ItemProperty -Path $Destination'LargeFilex.txt' -Name IsReadOnly -Value $true
 
-# 1..20 | foreach { new-item -path $Destination$_.txt }
+#Copy file from source to destination
+Copy-Item $Source'TextFile.txt' $Destination
+#Copy-Item $Source$File $Destination
 
+#Create log:
+New-Item -Path 'D:\log.log' -ItemType File
+
+#1..20 | foreach { new-item -path $Destination$_.txt }
