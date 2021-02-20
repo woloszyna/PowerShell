@@ -2,6 +2,8 @@ $Source = 'D:\Source\'
 $File = 'TextFile.txt'
 $Destination = 'D:\Destination\'
 $fileSize = 200000000 #200MB
+$logLoc = 'D:\log.log'
+$modifiedDate = '01/11/2005 06:01:36'
 
 New-Item -Path $Source -ItemType Directory
 New-Item -Path $Source$File -ItemType File
@@ -17,9 +19,16 @@ Set-ItemProperty -Path $Destination'LargeFilex.txt' -Name IsReadOnly -Value $tru
 
 #Copy file from source to destination
 Copy-Item $Source'TextFile.txt' $Destination
+
+#updating file's modified date
+$newDate = Get-Item $Destination$File
+$newDate.LastWriteTime = $modifiedDate
+#(Get-Date)
+
 #Copy-Item $Source$File $Destination
 
 #Create log:
-New-Item -Path 'D:\log.log' -ItemType File
+New-Item -Path $logLoc -ItemType File
+Set-Content -Path $logLoc -Value 'Blah Blah Blah Blah Blah Blah Blah Blah.'
 
 #1..20 | foreach { new-item -path $Destination$_.txt }
