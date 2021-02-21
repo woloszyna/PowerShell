@@ -1,10 +1,14 @@
-BeforeAll {
-    $Source = 'D:\Source\'
-    $File = 'TextFile.txt'
-    $Destination = 'D:\Destination\'
-    $fileSize = 200000000 #200MB
-    $logLoc = 'D:\log.log'
-    $modifiedDate = '01/11/2005 06:01:36'
+$Source = 'D:\Source\'
+$Dupa = 'D:\Dupa\'
+$File = 'TextFile.txt'
+$largeFile = 'Largefilex.txt'
+$Destination = 'D:\Destination\'
+$modifiedDate = '01/11/2005 06:01:36'
+
+
+
+Describe 'All operations conducted as part of the User Story xxx' {
+    BeforeAll {
 
     New-Item -Path $Source -ItemType Directory
     New-Item -Path $Source$File -ItemType File
@@ -33,17 +37,6 @@ BeforeAll {
 
     #1..20 | foreach { new-item -path $Destination$_.txt }
 }
-
-$Source = 'D:\Source\'
-$Dupa = 'D:\Dupa\'
-$File = 'TextFile.txt'
-$largeFile = 'Largefilex.txt'
-$Destination = 'D:\Destination\'
-$modifiedDate = '01/11/2005 06:01:36'
-
-
-
-Describe 'All operations conducted as part of the User Story xxx' {
     context 'Source directory exists with all expected files' {
         it  'Check if D:\Source directory is created' {
             $Source | Should Exist
@@ -78,6 +71,12 @@ Describe 'All operations conducted as part of the User Story xxx' {
 
         it 'TextFile.txt was created on 01/11/2005 06:01:36' {
             (Get-Item $Destination$File).LastWriteTime | Should Be $modifiedDate
+        }
+
+        AfterAll {
+        Remove-Item -Path $Destination -Force
+        Remove-Item -Path $Source -Force
+        Remove-Item -Path 'D:\log.log' -Force
         }
     }
 }
