@@ -19,11 +19,10 @@ Set-ItemProperty -Path $Destination'LargeFilex.txt' -Name IsReadOnly -Value $tru
 
 #Copy file from source to destination
 Copy-Item $Source'TextFile.txt' $Destination
-
+ 
 #updating file's modified date
 $newDate = Get-Item $Destination$File
 $newDate.LastWriteTime = $modifiedDate
-#(Get-Date)
 
 #Copy-Item $Source$File $Destination
 
