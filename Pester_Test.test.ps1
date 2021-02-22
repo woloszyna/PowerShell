@@ -5,8 +5,6 @@ $largeFile = 'Largefilex.txt'
 $Destination = 'D:\Destination\'
 $modifiedDate = '01/11/2005 06:01:36'
 
-
-
 Describe 'All operations conducted as part of the User Story xxx' {
     BeforeAll {
 
